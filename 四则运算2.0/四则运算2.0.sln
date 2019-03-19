@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.438
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "四则运算2.0", "四则运算2.0\四则运算2.0.csproj", "{E8E18A1B-722F-426D-88A1-3617E7EF6A05}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8E18A1B-722F-426D-88A1-3617E7EF6A05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8E18A1B-722F-426D-88A1-3617E7EF6A05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8E18A1B-722F-426D-88A1-3617E7EF6A05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8E18A1B-722F-426D-88A1-3617E7EF6A05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A883BF6A-7398-4A4B-84BD-B72632B62B32}
+	EndGlobalSection
+EndGlobal
