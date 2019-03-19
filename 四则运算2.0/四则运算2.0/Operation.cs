@@ -9,78 +9,29 @@ namespace 四则运算2._0
 {
      public class Operation
     {
-        /// <summary>
-        /// 一个运算符
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <param name="number"></param>
-        /// <param name="difficulty"></param>
-        /// <param name="operatos"></param>
-        /// <param name="operatos1"></param>
-        /// <returns></returns>
-        public static string formula1(DataTable dt, Random number, int difficulty, string[] operatos, string[] operatos1)
-        {
-            string number1 = number.Next(0, difficulty).ToString();
-            string number2 = number.Next(0, difficulty).ToString();
-            int number_op = number.Next(0, 4);
-            string results = dt.Compute(number1 + operatos1[number_op] + number2, "false").ToString();
-            string results1 = number1 + operatos[number_op] + number2 + "=" + results;
-            if (Convert.ToDouble(results) < 0|| results == "∞")
-            {
-                results1 = formula1(dt, number, difficulty, operatos, operatos1);
-            }
-            return results1;
-        }
 
-        /// <summary>
-        /// 两个运算符
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <param name="number"></param>
-        /// <param name="difficulty"></param>
-        /// <param name="operatos"></param>
-        /// <param name="operatos1"></param>
-        /// <returns></returns>
-        public static string formula2(DataTable dt, Random number, int difficulty, string[] operatos, string[] operatos1)
+
+        public static string formula4(DataTable dt, Random number, int difficulty, string[] operatos, string[] operatos1,int shu)
         {
             string number1 = number.Next(0, difficulty).ToString();
-            string number2 = number.Next(0, difficulty).ToString();
-            string number3 = number.Next(0, difficulty).ToString();
-            int number_op = number.Next(0, 4);
-            int number_op1 = number.Next(0, 4);
-            string results = dt.Compute(number1 + operatos1[number_op] + number2 + operatos1[number_op1] + number3, "false").ToString();
-            string results1 = number1 + operatos[number_op] + number2 + operatos1[number_op1] + number3 + "=" + results;
-            if (Convert.ToDouble(results) < 0 || results == "∞")
+            string results= number1;
+            string results1 = number1;
+            for (int s=0;s< shu; s++)
             {
-                results1 = formula2(dt, number, difficulty, operatos, operatos1);
+                int number_op = number.Next(0, 4);
+                number1 = number.Next(0, difficulty).ToString();
+                results += operatos[number_op]+number1;
+                results1 += operatos1[number_op]+number1;
             }
-            return results1;
-        }
-        /// <summary>
-        /// 三个运算符
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <param name="number"></param>
-        /// <param name="difficulty"></param>
-        /// <param name="operatos"></param>
-        /// <param name="operatos1"></param>
-        /// <returns></returns>
-        public static string formula3(DataTable dt, Random number, int difficulty, string[] operatos, string[] operatos1)
-        {
-            string number1 = number.Next(0, difficulty).ToString();
-            string number2 = number.Next(0, difficulty).ToString();
-            string number3 = number.Next(0, difficulty).ToString();
-            string number4 = number.Next(0, difficulty).ToString();
-            int number_op = number.Next(0, 4);
-            int number_op1 = number.Next(0, 4);
-            int number_op2 = number.Next(0, 4);
-            string results = dt.Compute(number1 + operatos1[number_op] + number2 + operatos1[number_op1] + number3 + operatos1[number_op2] + number4, "false").ToString();
-            string results1 = number1 + operatos[number_op] + number2 + operatos[number_op1] + number3 + operatos[number_op2] + number4 + "=" + results;
-            if (Convert.ToDouble(results) < 0 || results == "∞")
+            double st = double.Parse(dt.Compute(results1,"null").ToString());
+            results += "=" + st.ToString();
+            if (st < 0 || st.ToString() == "∞")
             {
-                results1 = formula3(dt, number, difficulty, operatos, operatos1);
+                results = formula4(dt, number, difficulty, operatos, operatos1, shu);
             }
-            return results1;
+           
+           
+            return results;
         }
     }
 }
