@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace 四则运算2._0
 {
-     public class Operation
+    public class Operation
     {
-        public static DataTable dT=new DataTable ();
-        public static Random number = new Random ();
+        public static DataTable dT = new DataTable();
+        public static Random number = new Random();
         public static string[] operatos = new string[] { "＋", "－", "×", "÷" };//输出用运算符数组
         public static string[] operatos1 = new string[] { "+", "-", "*", "/" };//运算用运算符数组
 
@@ -21,31 +21,29 @@ namespace 四则运算2._0
         /// <param name="difficulty">取值范围</param>
         /// <param name="shu">几则运算</param>
         /// <returns></returns>
-        public static string formula(int difficulty, int shu)
+        public static string formula(int difficulty, int shu, int operatos_s)
         {
             string number1 = number.Next(0, difficulty).ToString();//运算公式自然数
-            string results= number1;//用于输出
-            string results1 = number1;//用于计算
-            for (int s=0;s< shu; s++)
+            string results = number1, results1 = number1, st=null;//用于输出           
+            for (int s = 0; s < shu; s++)
             {
-                int number_op = number.Next(0, 4);//随机一次运算符
+                int number_op = number.Next(0, operatos_s);//随机一次运算符
                 number1 = number.Next(1, difficulty).ToString();//随机一个自然数
-                results += operatos[number_op]+number1;//把运算符和自然数添加进用于计算的字符串
-                results1 += operatos1[number_op]+number1;//把运算符和自然数添加进用于输出的字符串
+                results += operatos[number_op] + number1;//把运算符和自然数添加进用于计算的字符串
+                results1 += operatos1[number_op] + number1;//把运算符和自然数添加进用于输出的字符串
             }
-            string st = dT.Compute(results1,"null").ToString();//计算字符串类型公式的结果
+            st = dT.Compute(results1, "null").ToString();//计算字符串类型公式的结果
             Regex reg = new Regex(@"^\d+\.\d+$");
             if (reg.IsMatch(st))
             {
-               st=Score.score(double.Parse(st));
+                st = Score.score(double.Parse(st));
             }
             results += "=" + st.ToString();//把运算结果添加输出字符串
-            if (double.Parse(dT.Compute(st, "null").ToString())< 0 || st.ToString() == "∞"|| Regex.Match(st.ToString(), @"(?<=\.)\d+").Value.Length>5)//判断结果 如果小于0或无穷大 则重新运行一次
+            if (double.Parse(dT.Compute(st, "null").ToString()) < 0 || st.ToString() == "∞" || st.Length > 10)//判断结果 如果小于0或无穷大 则重新运行一次2          
             {
-                results = formula(difficulty, shu);
-            }         
-           
+                results = formula(difficulty, shu, operatos_s);
+            }
             return results;//把最终的输出公式返回
-        }       
+        }
     }
 }
