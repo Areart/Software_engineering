@@ -15,35 +15,43 @@ namespace 四则运算2._0
         public static string[] operatos = new string[] { "＋", "－", "×", "÷" };//输出用运算符数组
         public static string[] operatos1 = new string[] { "+", "-", "*", "/" };//运算用运算符数组
 
-        /// <summary>
-        /// 用于生成公式
-        /// </summary>
-        /// <param name="difficulty">取值范围</param>
-        /// <param name="shu">几则运算</param>
-        /// <returns></returns>
-        public static string formula(int difficulty, int shu, int operatos_s)
+
+
+
+        public static List<string> formula(int difficulty, int operatos_nub, int operatos_s)
         {
             string number1 = number.Next(0, difficulty).ToString();//运算公式自然数
-            string results = number1, results1 = number1, st=null;//用于输出           
-            for (int s = 0; s < shu; s++)
+            string results = number1, results1 = number1, st = null;//用于输出           
+            for (int s = 0; s < operatos_nub; s++)
             {
-                int number_op = number.Next(0, operatos_s);//随机一次运算符
+                int number_op = number.Next(0, operatos_s*2);//随机一次运算符
                 number1 = number.Next(1, difficulty).ToString();//随机一个自然数
                 results += operatos[number_op] + number1;//把运算符和自然数添加进用于计算的字符串
                 results1 += operatos1[number_op] + number1;//把运算符和自然数添加进用于输出的字符串
             }
             st = dT.Compute(results1, "null").ToString();//计算字符串类型公式的结果
-            Regex reg = new Regex(@"^\d+\.\d+$");
-            if (reg.IsMatch(st))
-            {
-                st = Score.score(double.Parse(st));
-            }
-            results += "=" + st.ToString();//把运算结果添加输出字符串
+            results += "=";
+            List<string> list = NewMethod(difficulty, operatos_nub, operatos_s, ref results, ref st);
+            return list;//把最终的输出公式返回
+        }
+
+        private static List<string> NewMethod(int difficulty, int number_fl, int operatos_s, ref string results, ref string st)
+        {
+            //Regex reg = new Regex(@"^\d+\.\d+$");
+            //if (reg.IsMatch(st))
+            //{
+            //    st = Score.score(double.Parse(st));
+            //}
             if (double.Parse(dT.Compute(st, "null").ToString()) < 0 || st.ToString() == "∞" || st.Length > 10)//判断结果 如果小于0或无穷大 则重新运行一次2          
             {
-                results = formula(difficulty, shu, operatos_s);
+                string[] formula_gt = formula(difficulty, number_fl, operatos_s).ToArray();
+                results = formula_gt[0];
+                st = formula_gt[1];
             }
-            return results;//把最终的输出公式返回
+            List<string> list = new List<string>();
+            list.Add(results);
+            list.Add(st);
+            return list;
         }
     }
 }
