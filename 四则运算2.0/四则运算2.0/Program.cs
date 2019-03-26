@@ -33,11 +33,11 @@ namespace 四则运算2._0
             for (int s = 0; s < Demands[3]; s++)
             {           
                string[] nuber_gt = Operation.formula(Demands[2], Demands[1], Demands[0]).ToArray();
-               generates[s]= (s + 1 + "、") + nuber_gt[0];//输出结果      
+               generates[s]= (s + 1 + "、") + nuber_gt[0];              //输出结果      
                topic.Add((s + 1 + "、") + nuber_gt[1]);
             }
-            Generate_TXT.generate_topic(topic.ToArray());
-            Generate_TXT.generate_answer(generates);
+            Generate_TXT.generate_topic(topic.ToArray());              //输出txt文档
+            Generate_TXT.generate_answer(generates);                   //输出txt文档
             return generates;
         }
        
