@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using System.Web;
+using System.Web.Script.Serialization;
 
 namespace 四则运算2._0
 {
@@ -100,43 +102,37 @@ namespace 四则运算2._0
             public Person[] persons;
 
         }
- 
-        public class jason : Operation
+
+        public class Data
         {
+            public int Id { get; set; }
+            // [ScriptIgnore]
+            public string Name { get; set; }
 
-            void Start()
+            public string GetName()
             {
-
-                Person p1 = new Person();
-
-                p1.name = "小明";
-
-                p1.age = 25;
-
-                //转成jason字符串
-
-                string jso = JsonUtility.ToJson(p1);
-
-                Person p2 = new Person();
-
-                p2.name = "小红";
-
-                p2.age = 6;
-
-                 Person[] jos = new Person[] { p1, p2 };
-
-                Persons persons = new Persons();
-
-                persons.person = jos;
-
-                jso = JsonUtility.ToJson(persons);
-
-                //解析json
-
-                Persons newpersons = JsonUtility.FromJson<Persons>(jso);//<里面是类型>（是要解析的变量，文件）
-
+                return Id.ToString() + Name;
             }
-            
+        }
+
+        public class JsonPaserWeb
+        {
+            // Object->Json
+            public string Serialize(Data obj)
+            {
+                JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+                string json = jsonSerializer.Serialize(obj);
+                return json;
+            }
+
+            // Json->Object
+            public Data Deserialize(string json)
+            {
+                JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+                //执行反序列化
+                Data obj = jsonSerializer.Deserialize<Data>(json);
+                return obj;
+            }
         }
     }
 }
